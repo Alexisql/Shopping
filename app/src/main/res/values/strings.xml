@@ -9,5 +9,6 @@
     <string name="error_icon">Warning</string>
     <string name="exception">Unhandled exception</string>
     <string name="home">Home</string>
-    <string name="cart">Cart</string>
+    <string name="delete_icon">Delete</string>
+    <string name="payment_icon">Payment</string>
 </resources>

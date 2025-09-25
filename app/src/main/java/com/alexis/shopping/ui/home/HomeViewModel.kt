@@ -1,5 +1,6 @@
 package com.alexis.shopping.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,5 +53,13 @@ class HomeViewModel @Inject constructor(
 
     fun searchPokemon(query: String) {
         _searchQuery.value = query
+    }
+
+    fun addToCart(pokemon: Pokemon) {
+        viewModelScope.launch(dispatcher) {
+            repository.addPokemon(pokemon)
+                .onSuccess { Log.i("HomeViewModel", "Cart adding") }
+                .onFailure { Log.e("HomeViewModel", "Error adding pokemon to cart", it) }
+        }
     }
 }

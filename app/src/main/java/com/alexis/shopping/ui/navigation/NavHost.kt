@@ -31,7 +31,10 @@ fun Navigation(
             )
         }
         composable(route = Route.Cart.route) {
-            CartScreen()
+            CartScreen(
+                modifier = Modifier,
+                navController = navController
+            )
         }
         composable(
             route = Route.Failure.route,

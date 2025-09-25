@@ -9,5 +9,5 @@ data class CartEntity(
     val id: Int,
     val name: String,
     val url: String,
-    val quantity: Int = 1
+    val price: Double,
 )

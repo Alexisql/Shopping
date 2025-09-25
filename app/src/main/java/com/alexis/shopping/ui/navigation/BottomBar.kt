@@ -42,10 +42,10 @@ fun BottomNavigationScreen(navController: NavHostController) {
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.ShoppingCart,
-                    contentDescription = stringResource(id = R.string.cart)
+                    contentDescription = stringResource(id = R.string.cart_icon)
                 )
             },
-            label = { Text(text = stringResource(id = R.string.cart)) }
+            label = { Text(text = stringResource(id = R.string.cart_icon)) }
         )
     }
 }

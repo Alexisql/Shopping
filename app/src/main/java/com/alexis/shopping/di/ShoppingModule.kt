@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.alexis.shopping.data.PokemonRepositoryImpl
 import com.alexis.shopping.data.local.PokemonDataBase
+import com.alexis.shopping.data.local.dao.PokemonDao
 import com.alexis.shopping.data.remote.service.PokemonService
 import com.alexis.shopping.domain.repository.IPokemonRepository
 import dagger.Module
@@ -50,8 +51,12 @@ object ShoppingModule {
 
     @Singleton
     @Provides
-    fun providerPokemonRepository(api: PokemonService, db: PokemonDataBase): IPokemonRepository {
-        return PokemonRepositoryImpl(api, db)
+    fun providerPokemonRepository(
+        api: PokemonService,
+        db: PokemonDataBase,
+        dao: PokemonDao
+    ): IPokemonRepository {
+        return PokemonRepositoryImpl(api, db, dao)
     }
 
     @Singleton
