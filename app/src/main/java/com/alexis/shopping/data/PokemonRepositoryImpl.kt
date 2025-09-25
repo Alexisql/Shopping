@@ -25,34 +25,18 @@ class PokemonRepositoryImpl @Inject constructor(
 ) : IPokemonRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun getPokemonList(): Flow<PagingData<Pokemon>> {
+    override fun getPokemonList(query: String): Flow<PagingData<Pokemon>> {
         return try {
             Pager(
                 config = PagingConfig(pageSize = 20),
                 remoteMediator = PokemonMediator(api, db),
-                pagingSourceFactory = { pokemonDao.getAllPokemon() }
+                pagingSourceFactory = { pokemonDao.getAllPokemon(query) }
             ).flow.map { pagingData ->
                 pagingData.map { it.toDomain() }
             }
         } catch (exception: Exception) {
             Log.e("IPokemonRepository", "Error getting pokemons", exception)
             throw Exception("Error getting pokemons", exception)
-        }
-    }
-
-    @OptIn(ExperimentalPagingApi::class)
-    override fun searchPokemon(pokemonName: String): Flow<PagingData<Pokemon>> {
-        return try {
-            Pager(
-                config = PagingConfig(pageSize = 20),
-                remoteMediator = PokemonMediator(api, db),
-                pagingSourceFactory = { pokemonDao.searchPokemon(pokemonName) }
-            ).flow.map { pagingData ->
-                pagingData.map { it.toDomain() }
-            }
-        } catch (exception: Exception) {
-            Log.e("IPokemonRepository", "Error searching pokemon", exception)
-            throw Exception("Error searching pokemon", exception)
         }
     }
 

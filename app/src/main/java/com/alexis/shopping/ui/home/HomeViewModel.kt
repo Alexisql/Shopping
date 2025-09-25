@@ -37,12 +37,8 @@ class HomeViewModel @Inject constructor(
     val pokemons: Flow<PagingData<Pokemon>> = _searchQuery
         .debounce(300)
         .flatMapLatest { query ->
-            if (query.isBlank()) {
-                repository.getPokemonList()
-                    .onEach { _state.value = UiState.Success(Unit) }
-            } else {
-                repository.searchPokemon(query)
-            }
+            repository.getPokemonList(query)
+                .onEach { _state.value = UiState.Success(Unit) }
         }
         .catch {
             _state.value = UiState.Failure(it)
