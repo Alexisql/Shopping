@@ -48,9 +48,6 @@ dependencies {
     implementation(libs.hilt.navigation)
     ksp(libs.hilt.compiler)
 
-    //Navigation
-    implementation(libs.navigation.compose)
-
     //Room
     implementation(libs.room)
     implementation(libs.room.paging)
@@ -60,6 +57,17 @@ dependencies {
     implementation(libs.paging)
     implementation(libs.paging.compose)
 
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
+    //Glide
+    implementation(libs.glide)
+    implementation(libs.glide.compose)
+
+    //Navigation
+    implementation(libs.navigation.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -68,6 +76,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.material.icons)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

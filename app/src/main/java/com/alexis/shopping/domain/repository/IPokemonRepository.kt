@@ -1,0 +1,13 @@
+package com.alexis.shopping.domain.repository
+
+import androidx.paging.PagingData
+import com.alexis.shopping.domain.model.Pokemon
+import kotlinx.coroutines.flow.Flow
+
+interface IPokemonRepository {
+    fun getPokemonList(): Flow<PagingData<Pokemon>>
+    fun searchPokemon(pokemonName: String): Flow<PagingData<Pokemon>>
+    suspend fun addPokemon(pokemon: Pokemon)
+    suspend fun removePokemon(cartItemId: Int)
+    fun getPokemonCart(): Flow<List<Pokemon>>
+}
