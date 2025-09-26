@@ -1,6 +1,7 @@
 package com.alexis.shopping.domain.model
 
 import com.alexis.shopping.data.local.entity.CartEntity
+import com.alexis.shopping.data.local.entity.PokemonCartEntity
 
 data class Pokemon(
     val id: Int,
@@ -17,11 +18,10 @@ fun Pokemon.toEntity() =
         price = price
     )
 
-fun CartEntity.toDomain() =
-    Pokemon(
-        id = id,
-        name = name,
-        url = url,
-        price = price
-    )
+fun PokemonCartEntity.toDomain() = Pokemon(
+    id = pokemon.id,
+    name = pokemon.name,
+    url = cart.url,
+    price = cart.price
+)
 

@@ -74,7 +74,7 @@ class PokemonRepositoryImpl @Inject constructor(
 
     override fun getPokemonCart(): Flow<List<Pokemon>> {
         return try {
-            pokemonDao.getItemsCart().map { entities ->
+            pokemonDao.getCartPokemon().map { entities ->
                 entities.map { it.toDomain() }
             }
         } catch (exception: Exception) {

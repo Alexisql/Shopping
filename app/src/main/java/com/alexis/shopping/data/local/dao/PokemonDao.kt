@@ -5,7 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.alexis.shopping.data.local.entity.CartEntity
+import com.alexis.shopping.data.local.entity.PokemonCartEntity
 import com.alexis.shopping.data.local.entity.PokemonEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -30,6 +32,7 @@ interface PokemonDao {
     @Query("DELETE FROM cart WHERE id = :cartItemId")
     suspend fun deleteCartItemById(cartItemId: Int)
 
-    @Query("SELECT * FROM cart ORDER BY name ASC")
-    fun getItemsCart(): Flow<List<CartEntity>>
+    @Transaction
+    @Query("SELECT * FROM cart ORDER BY name")
+    fun getCartPokemon(): Flow<List<PokemonCartEntity>>
 }

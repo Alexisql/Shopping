@@ -8,11 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteOutline
-import androidx.compose.material.icons.filled.Payment
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -49,9 +45,7 @@ fun CartScreen(
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                     ) {
-                        items(
-                            pokemons,
-                        ) { pokemon ->
+                        items(pokemons) { pokemon ->
                             ShowSpacer(10)
                             ItemPokemon(
                                 pokemon = pokemon,
@@ -67,26 +61,6 @@ fun CartScreen(
                                 EmptyListContent()
                             }
                         }
-                    }
-                }
-                if (pokemons.isNotEmpty()) {
-                    val tittleNotification = stringResource(R.string.tittle_notification)
-                    val messageNotification = stringResource(R.string.message_notification)
-                    FloatingActionButton(
-                        onClick = {
-                            cartViewModel.sendNotification(
-                                tittle = tittleNotification,
-                                message = messageNotification
-                            )
-                        },
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(16.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Payment,
-                            contentDescription = stringResource(R.string.payment_icon)
-                        )
                     }
                 }
             }

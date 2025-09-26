@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,8 @@ class CartViewModel @Inject constructor(
     private val _state = MutableStateFlow<UiState<List<Pokemon>>>(UiState.Loading)
     val state: StateFlow<UiState<List<Pokemon>>> = _state
 
+    private var firstTime = true
+
     init {
         getPokemonsCart()
     }
@@ -35,7 +38,15 @@ class CartViewModel @Inject constructor(
             repository.getPokemonCart()
                 .catch { _state.value = UiState.Failure(it) }
                 .flowOn(dispatcher)
+                .distinctUntilChanged()
                 .collect { pokemons ->
+                    if (!firstTime) {
+                        notification.sendNotification(
+                            title = "🎉 ¡Cart Update!",
+                            message = "Shopping cart updated successfully"
+                        )
+                    }
+                    firstTime = false
                     _state.value = UiState.Success(pokemons)
                 }
         }
@@ -46,15 +57,6 @@ class CartViewModel @Inject constructor(
             repository.removePokemon(pokemonId)
                 .onSuccess { Log.i("CartViewModel", "Cart remove") }
                 .onFailure { Log.e("CartViewModel", "Error remove pokemon to cart", it) }
-        }
-    }
-
-    fun sendNotification(tittle: String, message: String) {
-        viewModelScope.launch {
-            notification.sendNotification(
-                title = tittle,
-                message = message
-            )
         }
     }
 }
