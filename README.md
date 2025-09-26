@@ -37,3 +37,8 @@ Se implementan las notificaciones locales, para avisar al usuario cualquier camb
 - Jetpack Compose
 - Glide
 - Navigation
+
+## Observaciones para correr la App
+Android Studio Meerkat Feature Drop | 2024.3.2 Patch 1
+Version minima del SDK Android 24
+Gradle 8.11.1
