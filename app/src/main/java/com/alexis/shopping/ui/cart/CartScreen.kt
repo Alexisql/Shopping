@@ -70,8 +70,15 @@ fun CartScreen(
                     }
                 }
                 if (pokemons.isNotEmpty()) {
+                    val tittleNotification = stringResource(R.string.tittle_notification)
+                    val messageNotification = stringResource(R.string.message_notification)
                     FloatingActionButton(
-                        onClick = { cartViewModel.sendNotification() },
+                        onClick = {
+                            cartViewModel.sendNotification(
+                                tittle = tittleNotification,
+                                message = messageNotification
+                            )
+                        },
                         modifier = Modifier
                             .align(Alignment.BottomStart)
                             .padding(16.dp)

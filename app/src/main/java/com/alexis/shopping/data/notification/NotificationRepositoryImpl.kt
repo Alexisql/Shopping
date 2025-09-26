@@ -7,27 +7,34 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.alexis.shopping.R
 import com.alexis.shopping.domain.repository.INotificationRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+private const val CHANNEL_ID = "local_notification_channel"
+private const val CHANNEL_NAME = "Local Notification"
+private const val CHANNEL_DESCRIPTION = "Channel for local notifications"
+
 class NotificationRepositoryImpl @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : INotificationRepository {
 
-    private val channelId = "local_notification_channel"
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
-        createNotification()
+        createChannelNotification()
     }
 
-    private fun createNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Notificaciones Locales"
-            val descriptionText = "Canal para notificaciones de la aplicación"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, name, importance).apply {
-                description = descriptionText
+    private fun createChannelNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+            && notificationManager.getNotificationChannel(CHANNEL_ID) == null
+        ) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = CHANNEL_DESCRIPTION
             }
             notificationManager.createNotificationChannel(channel)
         }
@@ -36,7 +43,7 @@ class NotificationRepositoryImpl @Inject constructor(
     override fun sendNotification(message: String, title: String) {
         val notificationId = System.currentTimeMillis().toInt()
 
-        val builder = NotificationCompat.Builder(context, channelId)
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.notification)
             .setContentTitle(title)
             .setContentText(message)

@@ -28,7 +28,7 @@ class PokemonMediator @Inject constructor(
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
-                    if (lastItem == null) 0 else (lastItem.id / state.config.pageSize) + 20
+                    lastItem?.id ?: 0
                 }
             }
 

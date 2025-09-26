@@ -49,11 +49,11 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun sendNotification() {
+    fun sendNotification(tittle: String, message: String) {
         viewModelScope.launch {
             notification.sendNotification(
-                title = "🎉 ¡Purchase made successfully!",
-                message = "Your purchase has been successful, it will arrive at your home soon."
+                title = tittle,
+                message = message
             )
         }
     }

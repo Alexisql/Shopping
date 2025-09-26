@@ -11,4 +11,6 @@
     <string name="home">Home</string>
     <string name="delete_icon">Delete</string>
     <string name="payment_icon">Payment</string>
+    <string name="tittle_notification">🎉 ¡Purchase made successfully!</string>
+    <string name="message_notification">Your purchase has been successful, it will arrive at your home soon.</string>
 </resources>

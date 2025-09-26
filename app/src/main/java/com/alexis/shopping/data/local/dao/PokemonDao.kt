@@ -12,8 +12,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PokemonDao {
 
-    @Query("SELECT * FROM pokemon WHERE name LIKE :pokemonName || '%' ORDER BY name")
-    fun getAllPokemon(pokemonName: String): PagingSource<Int, PokemonEntity>
+    @Query("SELECT * FROM pokemon ORDER BY id")
+    fun getAllPokemon(): PagingSource<Int, PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE name LIKE :pokemonName || '%' ORDER BY id")
+    fun searchPokemon(pokemonName: String): PagingSource<Int, PokemonEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(pokemon: List<PokemonEntity>)
