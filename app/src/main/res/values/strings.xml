@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Shopping</string>
+    <string name="search_placeholder">Search...</string>
+    <string name="search_icon">Search</string>
+    <string name="clear">Clear</string>
+    <string name="not_found">No results found</string>
+    <string name="cart_icon">Cart</string>
+    <string name="pokemon">Pokemon</string>
+    <string name="error_icon">Warning</string>
+    <string name="exception">Unhandled exception</string>
+    <string name="home">Home</string>
+    <string name="delete_icon">Delete</string>
+    <string name="payment_icon">Payment</string>
 </resources>
