@@ -24,7 +24,12 @@ fun BottomNavigationScreen(navController: NavHostController) {
         NavigationBarItem(
             selected = currentDestination?.hierarchy?.any { it.route == Route.Home.route } == true,
             onClick = {
-                navController.navigate(Route.Home.route)
+                navController.navigate(Route.Home.route) {
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                }
             },
             icon = {
                 Icon(
@@ -37,7 +42,12 @@ fun BottomNavigationScreen(navController: NavHostController) {
         NavigationBarItem(
             selected = currentDestination?.hierarchy?.any { it.route == Route.Cart.route } == true,
             onClick = {
-                navController.navigate(Route.Cart.route)
+                navController.navigate(Route.Cart.route) {
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                }
             },
             icon = {
                 Icon(

@@ -71,9 +71,9 @@ fun CartScreen(
                 }
                 if (pokemons.isNotEmpty()) {
                     FloatingActionButton(
-                        onClick = { },
+                        onClick = { cartViewModel.sendNotification() },
                         modifier = Modifier
-                            .align(Alignment.BottomEnd)
+                            .align(Alignment.BottomStart)
                             .padding(16.dp)
                     ) {
                         Icon(

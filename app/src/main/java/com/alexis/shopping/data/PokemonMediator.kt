@@ -24,11 +24,11 @@ class PokemonMediator @Inject constructor(
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
-                LoadType.REFRESH -> 1
+                LoadType.REFRESH -> 0
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
-                    lastItem?.id ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    if (lastItem == null) 0 else (lastItem.id / state.config.pageSize) + 20
                 }
             }
 

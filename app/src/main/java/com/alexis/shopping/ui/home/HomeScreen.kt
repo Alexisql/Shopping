@@ -16,7 +16,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
 import com.alexis.shopping.R
 import com.alexis.shopping.ui.core.ShowCircularIndicator
 import com.alexis.shopping.ui.core.ShowSpacer
@@ -57,8 +56,7 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxSize(),
                     ) {
                         items(
-                            count = pokemons.itemCount,
-                            key = pokemons.itemKey { it.id }
+                            count = pokemons.itemCount
                         ) { index ->
                             val item = pokemons[index]
                             if (item != null) {
@@ -73,9 +71,7 @@ fun HomeScreen(
                                 )
                             }
                         }
-                        val isListEmpty = pokemons.itemCount == 0
-
-                        if (isListEmpty) {
+                        if (pokemons.itemCount == 0) {
                             item {
                                 EmptyListContent()
                             }

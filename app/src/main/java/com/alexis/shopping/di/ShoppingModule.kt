@@ -5,7 +5,9 @@ import androidx.room.Room
 import com.alexis.shopping.data.PokemonRepositoryImpl
 import com.alexis.shopping.data.local.PokemonDataBase
 import com.alexis.shopping.data.local.dao.PokemonDao
+import com.alexis.shopping.data.notification.NotificationRepositoryImpl
 import com.alexis.shopping.data.remote.service.PokemonService
+import com.alexis.shopping.domain.repository.INotificationRepository
 import com.alexis.shopping.domain.repository.IPokemonRepository
 import dagger.Module
 import dagger.Provides
@@ -64,4 +66,11 @@ object ShoppingModule {
     fun provideDispatcherIO(): CoroutineDispatcher {
         return Dispatchers.IO
     }
+
+    @Singleton
+    @Provides
+    fun providerNotificationRepository(@ApplicationContext context: Context) : INotificationRepository {
+        return NotificationRepositoryImpl(context)
+    }
+
 }

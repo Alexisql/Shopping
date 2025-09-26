@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexis.shopping.domain.model.Pokemon
+import com.alexis.shopping.domain.repository.INotificationRepository
 import com.alexis.shopping.domain.repository.IPokemonRepository
 import com.alexis.shopping.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val repository: IPokemonRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val notification: INotificationRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<UiState<List<Pokemon>>>(UiState.Loading)
@@ -44,6 +46,15 @@ class CartViewModel @Inject constructor(
             repository.removePokemon(pokemonId)
                 .onSuccess { Log.i("CartViewModel", "Cart remove") }
                 .onFailure { Log.e("CartViewModel", "Error remove pokemon to cart", it) }
+        }
+    }
+
+    fun sendNotification() {
+        viewModelScope.launch {
+            notification.sendNotification(
+                title = "🎉 ¡Purchase made successfully!",
+                message = "Your purchase has been successful, it will arrive at your home soon."
+            )
         }
     }
 }
